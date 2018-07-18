@@ -53066,15 +53066,6 @@ declare namespace OneNote {
     /**
      * [Api set: OneNoteApi 1.1]
      */
-    enum EntityType {
-        notebook = "Notebook",
-        sectionGroup = "SectionGroup",
-        section = "Section",
-        page = "Page",
-    }
-    /**
-     * [Api set: OneNoteApi 1.1]
-     */
     enum InsertLocation {
         before = "Before",
         after = "After",
@@ -53427,6 +53418,14 @@ declare namespace OneNote {
         interface TableCellCollectionUpdateData {
             items?: OneNote.Interfaces.TableCellData[];
         }
+        /** An interface for updating data on the AccessibilityViolationCollection object, for use in "accessibilityViolationCollection.set({ ... })". */
+        interface AccessibilityViolationCollectionUpdateData {
+            items?: OneNote.Interfaces.AccessibilityViolationData[];
+        }
+        /** An interface for updating data on the AccessibilityViolationsByEntityCollection object, for use in "accessibilityViolationsByEntityCollection.set({ ... })". */
+        interface AccessibilityViolationsByEntityCollectionUpdateData {
+            items?: OneNote.Interfaces.AccessibilityViolationsByEntityData[];
+        }
         /** An interface describing the data returned by calling "application.toJSON()". */
         interface ApplicationData {
             /**
@@ -53643,6 +53642,13 @@ declare namespace OneNote {
         interface NotebookData {
             /**
             *
+            * The accessibility violations in the notebook. Read only
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            accessibilityViolations?: OneNote.Interfaces.AccessibilityViolationsByEntityData[];
+            /**
+            *
             * The section groups in the notebook. Read only
             *
             * [Api set: OneNoteApi 1.1]
@@ -53837,6 +53843,13 @@ declare namespace OneNote {
         }
         /** An interface describing the data returned by calling "page.toJSON()". */
         interface PageData {
+            /**
+            *
+            * The accessibility violations in the page. Read only
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            accessibilityViolations?: OneNote.Interfaces.AccessibilityViolationData[];
             /**
             *
             * The collection of PageContent objects on the page. Read only
@@ -54332,6 +54345,90 @@ declare namespace OneNote {
         /** An interface describing the data returned by calling "tableCellCollection.toJSON()". */
         interface TableCellCollectionData {
             items?: OneNote.Interfaces.TableCellData[];
+        }
+        /** An interface describing the data returned by calling "accessibilityViolation.toJSON()". */
+        interface AccessibilityViolationData {
+            /**
+             *
+             * Gets the ID of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: string;
+            /**
+             *
+             * Gets the location of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            location?: OneNote.AccessibilityViolationLocation | "None" | "OnHighlight" | "OnMultipleParagraphs" | "OnOutline" | "OnPage" | "OnParagraph" | "OnParagraphBegin" | "OnParagraphEnd" | "OnTable" | "WithinParagraph";
+            /**
+             *
+             * Gets the name of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            name?: string;
+            /**
+             *
+             * Gets the type of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            type?: OneNote.AccessibilityViolationType | "None" | "MissingAltText" | "TableWithNoHeaderRow" | "UntitledPage" | "UnnamedSection" | "UnnamedSectionGroup" | "NonDescriptiveAltText" | "NestedTable" | "HeadingOutOfOrder" | "ExtraOutline" | "ExtraWhitespace" | "NoHeadingsInALongDocument" | "InsufficientTextContrast";
+        }
+        /** An interface describing the data returned by calling "accessibilityViolationCollection.toJSON()". */
+        interface AccessibilityViolationCollectionData {
+            items?: OneNote.Interfaces.AccessibilityViolationData[];
+        }
+        /** An interface describing the data returned by calling "accessibilityViolationsByEntity.toJSON()". */
+        interface AccessibilityViolationsByEntityData {
+            /**
+            *
+            * Gets the parent section section group (if any) of the entity. Read-only.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionGroupOrNull?: OneNote.Interfaces.SectionGroupData;
+            /**
+            *
+            * Gets the parent section (if any) of the entity. Read-only.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionOrNull?: OneNote.Interfaces.SectionData;
+            /**
+             *
+             * Gets the name of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityName?: string;
+            /**
+             *
+             * Gets the type of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityType?: OneNote.EntityType | "Notebook" | "SectionGroup" | "Section" | "Page";
+            /**
+             *
+             * Gets the ID of the AccessibilityViolationsByEntity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: string;
+            /**
+             *
+             * Gets the count of accessibility violations for the entity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            violationsCount?: number;
+        }
+        /** An interface describing the data returned by calling "accessibilityViolationsByEntityCollection.toJSON()". */
+        interface AccessibilityViolationsByEntityCollectionData {
+            items?: OneNote.Interfaces.AccessibilityViolationsByEntityData[];
         }
         /**
          *
@@ -56210,6 +56307,7 @@ declare namespace OneNote {
 ////////////////////////////////////////////////////////////////
 /////////////////////// End OneNote APIs ///////////////////////
 ////////////////////////////////////////////////////////////////
+
 
 
 
